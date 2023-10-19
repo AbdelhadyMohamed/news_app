@@ -23,7 +23,7 @@ class _NewsWidgetState extends State<NewsWidget> {
     return ChangeNotifierProvider(
         create: (context) => MyProvider(),
         builder: (context, child) {
-          print(provider.searchedItem ?? "123123123");
+          print(provider.searchedItem);
           return Padding(
             padding: const EdgeInsets.all(12),
             child: InkWell(

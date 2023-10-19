@@ -6,7 +6,7 @@ class MyProvider extends ChangeNotifier {
   bool? indicator;
   late News newsItem;
   late int newsIndex;
-  late String? searchedItem;
+  String? searchedItem;
 
   fromNewsToFull() {
     indicator = false;

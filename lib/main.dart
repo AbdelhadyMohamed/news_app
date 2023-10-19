@@ -22,6 +22,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context);
+    provider.searchedItem ?? "";
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: HomeLayout.routeName,

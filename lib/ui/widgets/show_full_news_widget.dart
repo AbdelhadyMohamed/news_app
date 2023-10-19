@@ -10,13 +10,13 @@ class ShowFullNewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<MyProvider>(context);
-    provider.searchedItem ?? "";
 
     return ChangeNotifierProvider(
         create: (context) => MyProvider(),
         builder: (context, child) => FutureBuilder(
             future: ApiManager.getNews(provider.newsItem.source!.id!, ""),
             builder: (context, snapshot) {
+              provider.searchedItem ?? "";
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError ||
