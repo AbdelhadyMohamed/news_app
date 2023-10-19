@@ -6,7 +6,6 @@ class MyProvider extends ChangeNotifier {
   bool? indicator;
   late News newsItem;
   late int newsIndex;
-  String? searchedItem;
 
   fromNewsToFull() {
     indicator = false;
@@ -21,10 +20,5 @@ class MyProvider extends ChangeNotifier {
   getNews(News news, int index) {
     newsItem = news;
     newsIndex = index;
-  }
-
-  searchNews(String keyword) {
-    searchedItem = keyword;
-    notifyListeners();
   }
 }

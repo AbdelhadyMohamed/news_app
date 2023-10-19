@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/providers/my_provider.dart';
+import 'package:news_app/providers/search_provider.dart';
 import 'package:news_app/shared/api_manager/api_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -10,13 +11,14 @@ class ShowFullNewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<MyProvider>(context);
+    var provider2 = Provider.of<SearchProvider>(context);
 
     return ChangeNotifierProvider(
         create: (context) => MyProvider(),
         builder: (context, child) => FutureBuilder(
             future: ApiManager.getNews(provider.newsItem.source!.id!, ""),
             builder: (context, snapshot) {
-              provider.searchedItem ?? "";
+              provider2.searchedItem ??= "";
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError ||

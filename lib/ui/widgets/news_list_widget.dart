@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/models/SourcesResponse.dart';
+import 'package:news_app/providers/search_provider.dart';
 import 'package:news_app/shared/api_manager/api_manager.dart';
 import 'package:provider/provider.dart';
 
@@ -12,24 +13,29 @@ class NewsListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<MyProvider>(context);
-    provider.searchedItem ?? "";
+    var provider = Provider.of<SearchProvider>(context);
+    provider.searchedItem ??= "";
     return FutureBuilder(
       future: ApiManager.getNews(source.id!, provider.searchedItem ?? ""),
       builder: (context, snapshot) {
+        print(provider.searchedItem ?? "");
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError || snapshot.data?.status == "error") {
-          return Column(
-            children: [
-              Center(
-                child: Text(
-                    snapshot.data?.message ?? snapshot.data!.status.toString()),
-              ),
-              ElevatedButton(
-                  onPressed: () {}, child: const Text("Please try again"))
-            ],
-          );
+          return ChangeNotifierProvider(
+              create: (context) => MyProvider(),
+              builder: (context, child) {
+                return Column(
+                  children: [
+                    Center(
+                      child: Text(snapshot.data?.message ??
+                          snapshot.data!.status.toString()),
+                    ),
+                    ElevatedButton(
+                        onPressed: () {}, child: const Text("Please try again"))
+                  ],
+                );
+              });
         }
 
         var news = snapshot.data?.articles ?? [];

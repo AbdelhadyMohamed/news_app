@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/providers/my_provider.dart';
-import 'package:news_app/shared/api_manager/api_manager.dart';
+import 'package:news_app/providers/search_provider.dart';
 import 'package:news_app/ui/categories/categories_widget.dart';
 import 'package:news_app/ui/categories/category.dart';
 import 'package:news_app/ui/categories/category_details.dart';
@@ -25,7 +24,10 @@ class _HomeLayoutState extends State<HomeLayout> {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<MyProvider>(context);
+    var provider = Provider.of<SearchProvider>(context);
+    late var searchController = TextEditingController();
+    searchController.text = provider.searchedItem ?? "";
+
     return Container(
       decoration: const BoxDecoration(
           color: Colors.white,
@@ -36,11 +38,6 @@ class _HomeLayoutState extends State<HomeLayout> {
         drawer: HomeDrawer(onMenuItemClicked),
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          actions: [
-            Container(
-                margin: const EdgeInsets.only(right: 20),
-                child: const Icon(Icons.search))
-          ],
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(35),
@@ -54,8 +51,25 @@ class _HomeLayoutState extends State<HomeLayout> {
               child: SearchBar(
                 onSubmitted: (value) {
                   provider.searchNews(value);
-                  // setState(() {});
                 },
+                // hintText: "search",
+                leading: const Icon(Icons.search, color: Colors.black),
+                trailing: <Widget>[
+                  Tooltip(
+                    message: 'Change brightness mode',
+                    child: IconButton(
+                      onPressed: () {
+                        if (provider.searchedItem != "") {
+                          provider.searchNews("");
+                        }
+                      },
+                      icon: const Icon(Icons.cancel, color: Colors.black),
+                      selectedIcon: const Icon(Icons.brightness_2_outlined,
+                          color: Colors.black),
+                    ),
+                  )
+                ],
+                controller: searchController,
               )),
         ),
         body: selectedWidget,
