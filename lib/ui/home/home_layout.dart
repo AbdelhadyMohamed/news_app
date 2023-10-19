@@ -39,7 +39,7 @@ class _HomeLayoutState extends State<HomeLayout> {
           elevation: 4,
           backgroundColor: Colors.green,
           centerTitle: true,
-          title: Text("News App"),
+          title: const Text("News App"),
         ),
         body: selectedWidget,
 
@@ -52,7 +52,7 @@ class _HomeLayoutState extends State<HomeLayout> {
 
   void onMenuItemClicked(MenuItem item) {
     if (item == MenuItem.settings) {
-      selectedWidget = SettingsWidget();
+      selectedWidget = const SettingsWidget();
     } else {
       selectedWidget = CategoriesWidget(onCategoryClicked);
     }

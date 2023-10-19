@@ -33,9 +33,9 @@ class NewsListWidget extends StatelessWidget {
         return Expanded(
           child: ListView.builder(
             itemBuilder: (context, index) {
-              return NewsWidget(news[index]);
+              return NewsWidget(news[index], index);
             },
-            itemCount: news.length ?? 0,
+            itemCount: news.length,
           ),
         );
       },

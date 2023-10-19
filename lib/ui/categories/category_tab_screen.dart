@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:news_app/providers/my_provider.dart';
+import 'package:news_app/ui/widgets/show_full_news_widget.dart';
+import 'package:provider/provider.dart';
 import '../../models/SourcesResponse.dart';
 import '../widgets/news_list_widget.dart';
 import '../widgets/tab_widget.dart';
@@ -42,3 +44,5 @@ class _CategoryTabScreenState extends State<CategoryTabScreen> {
     );
   }
 }
+// typedef OnFullNewsClicked = Function();
+// OnFullNewsClicked onFullNewsClicked;
