@@ -22,7 +22,7 @@ class _HomeLayoutState extends State<HomeLayout> {
     selectedWidget = CategoriesWidget(onCategoryClicked);
   }
 
-  @override
+  bool searchSelected = false;
   Widget build(BuildContext context) {
     var provider = Provider.of<SearchProvider>(context);
     late var searchController = TextEditingController();
@@ -45,32 +45,52 @@ class _HomeLayoutState extends State<HomeLayout> {
           elevation: 4,
           backgroundColor: Colors.green,
           centerTitle: true,
-          title: Container(
-              padding: const EdgeInsets.only(right: 10),
-              height: 38,
-              child: SearchBar(
-                onSubmitted: (value) {
-                  provider.searchNews(value);
-                },
-                // hintText: "search",
-                leading: const Icon(Icons.search, color: Colors.black),
-                trailing: <Widget>[
-                  Tooltip(
-                    message: 'Change brightness mode',
-                    child: IconButton(
-                      onPressed: () {
-                        if (provider.searchedItem != "") {
-                          provider.searchNews("");
-                        }
-                      },
-                      icon: const Icon(Icons.cancel, color: Colors.black),
-                      selectedIcon: const Icon(Icons.brightness_2_outlined,
-                          color: Colors.black),
-                    ),
-                  )
-                ],
-                controller: searchController,
-              )),
+          title: searchSelected
+              ? Container(
+                  padding: const EdgeInsets.only(right: 10),
+                  height: 38,
+                  child: SearchBar(
+                    onSubmitted: (value) {
+                      provider.searchNews(value);
+                    },
+                    // hintText: "search",
+                    leading: const Icon(Icons.search, color: Colors.black),
+                    trailing: [
+                      Tooltip(
+                        message: 'Change brightness mode',
+                        child: IconButton(
+                          onPressed: () {
+                            if (provider.searchedItem != "") {
+                              provider.searchNews("");
+                            }
+                          },
+                          icon: InkWell(
+                              onTap: () {
+                                provider.searchNews("");
+                                searchSelected = false;
+                                setState(() {});
+                              },
+                              child: const Icon(Icons.cancel,
+                                  color: Colors.black)),
+                          selectedIcon: const Icon(Icons.brightness_2_outlined,
+                              color: Colors.black),
+                        ),
+                      )
+                    ],
+                    controller: searchController,
+                  ))
+              : Row(
+                  children: [
+                    const Text("News App"),
+                    const Spacer(),
+                    InkWell(
+                        onTap: () {
+                          searchSelected = true;
+                          setState(() {});
+                        },
+                        child: const Icon(Icons.search))
+                  ],
+                ),
         ),
         body: selectedWidget,
 
