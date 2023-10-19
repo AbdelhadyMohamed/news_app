@@ -18,9 +18,18 @@ class ApiManager {
     return sourcesResponse;
   }
 
-  static Future<NewsResponse> getNews(String sourcedId) async {
+  static Future<NewsResponse> getNews(String sourcedId, String? keyword) async {
     Uri url = Uri.https(baseUrl, "/v2/everything",
-        {"apikey": apiKey, "sources": sourcedId, "source": sourcedId});
+        {"apikey": apiKey, "sources": sourcedId, "q": keyword});
+    Response response = await http.get(url);
+    var json = jsonDecode(response.body);
+    var newsResponse = NewsResponse.fromJson(json);
+    return newsResponse;
+  }
+
+  static Future<NewsResponse> searchNews(String keyword) async {
+    Uri url =
+        Uri.https(baseUrl, "/v2/everything", {"apikey": apiKey, "q": keyword});
     Response response = await http.get(url);
     var json = jsonDecode(response.body);
     var newsResponse = NewsResponse.fromJson(json);

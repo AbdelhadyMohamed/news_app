@@ -20,45 +20,51 @@ class _NewsWidgetState extends State<NewsWidget> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<MyProvider>(context);
-    return Padding(
-      padding: EdgeInsets.all(12),
-      child: InkWell(
-        onTap: () {
-          provider.fromNewsToFull();
-          provider.getNews(widget.news, widget.index);
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(18),
-              child: CachedNetworkImage(
-                height: 220,
-                width: double.infinity,
-                fit: BoxFit.fill,
-                imageUrl: widget.news.urlToImage ?? " ",
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    Center(
-                        child: CircularProgressIndicator(
-                            value: downloadProgress.progress)),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+    return ChangeNotifierProvider(
+        create: (context) => MyProvider(),
+        builder: (context, child) {
+          print(provider.searchedItem ?? "123123123");
+          return Padding(
+            padding: const EdgeInsets.all(12),
+            child: InkWell(
+              onTap: () {
+                provider.fromNewsToFull();
+                provider.getNews(widget.news, widget.index);
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(18),
+                    child: CachedNetworkImage(
+                      height: 220,
+                      width: double.infinity,
+                      fit: BoxFit.fill,
+                      imageUrl: widget.news.urlToImage ?? " ",
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) => Center(
+                              child: CircularProgressIndicator(
+                                  value: downloadProgress.progress)),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    ),
+                  ),
+                  Text(
+                    widget.news.author ?? "",
+                    textAlign: TextAlign.start,
+                  ),
+                  Text(
+                    widget.news.title ?? "",
+                    textAlign: TextAlign.start,
+                  ),
+                  Text(
+                    widget.news.publishedAt?.substring(0, 10) ?? "",
+                    textAlign: TextAlign.end,
+                  ),
+                ],
               ),
             ),
-            Text(
-              widget.news.author ?? "",
-              textAlign: TextAlign.start,
-            ),
-            Text(
-              widget.news.title ?? "",
-              textAlign: TextAlign.start,
-            ),
-            Text(
-              widget.news.publishedAt?.substring(0, 10) ?? "",
-              textAlign: TextAlign.end,
-            ),
-          ],
-        ),
-      ),
-    );
+          );
+        });
   }
 }

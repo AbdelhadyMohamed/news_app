@@ -55,7 +55,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
 
                         return CategoryTabScreen(sources, index);
                       })
-                  : ShowFullNewWidget()
+                  : const ShowFullNewWidget()
             ],
           );
         });
