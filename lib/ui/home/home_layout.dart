@@ -60,7 +60,8 @@ class _HomeLayoutState extends State<HomeLayout> {
             centerTitle: true,
             title: searchSelected
                 ? Container(
-                    padding: const EdgeInsets.only(right: 10),
+                    margin: const EdgeInsets.only(right: 10),
+                    // padding: const EdgeInsets.only(right: 10),
                     height: 38,
                     child: SearchBar(
                       onSubmitted: (value) {
@@ -73,21 +74,11 @@ class _HomeLayoutState extends State<HomeLayout> {
                           message: 'Change brightness mode',
                           child: IconButton(
                             onPressed: () {
-                              if (provider.searchedItem != "") {
-                                provider.searchNews("");
-                              }
+                              provider.searchNews("");
+                              searchSelected = false;
+                              setState(() {});
                             },
-                            icon: InkWell(
-                                onTap: () {
-                                  provider.searchNews("");
-                                  searchSelected = false;
-                                  setState(() {});
-                                },
-                                child: const Icon(Icons.cancel,
-                                    color: Colors.black)),
-                            selectedIcon: const Icon(
-                                Icons.brightness_2_outlined,
-                                color: Colors.black),
+                            icon: const Icon(Icons.cancel, color: Colors.black),
                           ),
                         )
                       ],

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:news_app/providers/my_provider.dart';
 import 'package:news_app/providers/search_provider.dart';
 import 'package:news_app/ui/home/home_layout.dart';
@@ -35,6 +36,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     var provider = Provider.of<SearchProvider>(context);
     provider.searchedItem ??= "";
     provider.showSearchIcon ??= false;
