@@ -80,6 +80,7 @@ class ShowFullNewWidget extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         provider.fromFullToNews();
+                        provider2.viewSearchIcon();
                       },
                       child: const Align(
                           alignment: Alignment.bottomLeft,

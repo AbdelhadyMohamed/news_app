@@ -8,8 +8,8 @@ import '../../providers/my_provider.dart';
 import 'news_widget.dart';
 
 class NewsListWidget extends StatelessWidget {
-  Sources source;
-  NewsListWidget(this.source, {super.key});
+  final Sources source;
+  const NewsListWidget(this.source, {super.key});
 
   @override
   Widget build(BuildContext context) {

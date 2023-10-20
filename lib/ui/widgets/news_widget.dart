@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/models/NewsResponse.dart';
+import 'package:news_app/providers/search_provider.dart';
 import 'package:news_app/ui/categories/category_tab_screen.dart';
 import 'package:news_app/ui/widgets/show_full_news_widget.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,7 @@ class _NewsWidgetState extends State<NewsWidget> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<MyProvider>(context);
+    var provider1 = Provider.of<SearchProvider>(context);
     return ChangeNotifierProvider(
         create: (context) => MyProvider(),
         builder: (context, child) {
@@ -28,6 +30,8 @@ class _NewsWidgetState extends State<NewsWidget> {
             child: InkWell(
               onTap: () {
                 provider.fromNewsToFull();
+                provider1.unViewSearchIcon();
+
                 provider.getNews(widget.news, widget.index);
               },
               child: Column(
