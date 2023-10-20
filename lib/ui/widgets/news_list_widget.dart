@@ -18,7 +18,6 @@ class NewsListWidget extends StatelessWidget {
     return FutureBuilder(
       future: ApiManager.getNews(source.id!, provider.searchedItem ?? ""),
       builder: (context, snapshot) {
-        print(provider.searchedItem ?? "");
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError || snapshot.data?.status == "error") {

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'category.dart';
@@ -16,8 +17,9 @@ class CategoriesWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text('''Pick your category \nof interest''',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
+          Text("Pick your category".tr(),
+              style:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
           Expanded(
             child: GridView.builder(
               padding: const EdgeInsets.only(top: 35),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/providers/search_provider.dart';
 import 'package:news_app/ui/categories/categories_widget.dart';
@@ -34,67 +35,80 @@ class _HomeLayoutState extends State<HomeLayout> {
           image: DecorationImage(
               image: AssetImage("assets/images/pattern.png"),
               fit: BoxFit.cover)),
-      child: Scaffold(
-        drawer: HomeDrawer(onMenuItemClicked),
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(35),
-          )),
-          elevation: 4,
-          backgroundColor: Colors.green,
-          centerTitle: true,
-          title: searchSelected
-              ? Container(
-                  padding: const EdgeInsets.only(right: 10),
-                  height: 38,
-                  child: SearchBar(
-                    onSubmitted: (value) {
-                      provider.searchNews(value);
-                    },
-                    // hintText: "search",
-                    leading: const Icon(Icons.search, color: Colors.black),
-                    trailing: [
-                      Tooltip(
-                        message: 'Change brightness mode',
-                        child: IconButton(
-                          onPressed: () {
-                            if (provider.searchedItem != "") {
-                              provider.searchNews("");
-                            }
-                          },
-                          icon: InkWell(
-                              onTap: () {
+      child: WillPopScope(
+        onWillPop: () {
+          if (selectedWidget is CategoriesWidget) {
+            return Future.value(true);
+          } else if (selectedWidget is CategoryDetails) {
+            selectedWidget = CategoriesWidget(onCategoryClicked);
+            setState(() {});
+            return Future.value(false);
+          }
+          return Future.value(true);
+        },
+        child: Scaffold(
+          drawer: HomeDrawer(onMenuItemClicked),
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(35),
+            )),
+            elevation: 4,
+            backgroundColor: Colors.green,
+            centerTitle: true,
+            title: searchSelected
+                ? Container(
+                    padding: const EdgeInsets.only(right: 10),
+                    height: 38,
+                    child: SearchBar(
+                      onSubmitted: (value) {
+                        provider.searchNews(value);
+                      },
+                      // hintText: "search",
+                      leading: const Icon(Icons.search, color: Colors.black),
+                      trailing: [
+                        Tooltip(
+                          message: 'Change brightness mode',
+                          child: IconButton(
+                            onPressed: () {
+                              if (provider.searchedItem != "") {
                                 provider.searchNews("");
-                                searchSelected = false;
-                                setState(() {});
-                              },
-                              child: const Icon(Icons.cancel,
-                                  color: Colors.black)),
-                          selectedIcon: const Icon(Icons.brightness_2_outlined,
-                              color: Colors.black),
-                        ),
-                      )
+                              }
+                            },
+                            icon: InkWell(
+                                onTap: () {
+                                  provider.searchNews("");
+                                  searchSelected = false;
+                                  setState(() {});
+                                },
+                                child: const Icon(Icons.cancel,
+                                    color: Colors.black)),
+                            selectedIcon: const Icon(
+                                Icons.brightness_2_outlined,
+                                color: Colors.black),
+                          ),
+                        )
+                      ],
+                      controller: searchController,
+                    ))
+                : Row(
+                    children: [
+                      Text("News App".tr()),
+                      const Spacer(),
+                      InkWell(
+                          onTap: () {
+                            searchSelected = true;
+                            setState(() {});
+                          },
+                          child: const Icon(Icons.search))
                     ],
-                    controller: searchController,
-                  ))
-              : Row(
-                  children: [
-                    const Text("News App"),
-                    const Spacer(),
-                    InkWell(
-                        onTap: () {
-                          searchSelected = true;
-                          setState(() {});
-                        },
-                        child: const Icon(Icons.search))
-                  ],
-                ),
-        ),
-        body: selectedWidget,
+                  ),
+          ),
+          body: selectedWidget,
 
-        // body:
+          // body:
+        ),
       ),
     );
   }
