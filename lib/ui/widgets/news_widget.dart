@@ -29,6 +29,7 @@ class _NewsWidgetState extends State<NewsWidget> {
               onTap: () {
                 provider.fromNewsToFull();
                 provider1.unViewSearchIcon();
+                provider1.unViewSearchBar();
 
                 provider.getNews(widget.news, widget.index);
               },

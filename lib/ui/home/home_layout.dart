@@ -26,6 +26,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   bool searchSelected = false;
   Widget build(BuildContext context) {
     var provider = Provider.of<SearchProvider>(context);
+    provider.searchBar ??= false;
     late var searchController = TextEditingController();
     searchController.text = provider.searchedItem ?? "";
 
@@ -58,7 +59,7 @@ class _HomeLayoutState extends State<HomeLayout> {
             elevation: 4,
             backgroundColor: Colors.green,
             centerTitle: true,
-            title: searchSelected
+            title: provider.searchBar == true
                 ? Container(
                     margin: const EdgeInsets.only(right: 10),
                     // padding: const EdgeInsets.only(right: 10),
@@ -75,8 +76,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                           child: IconButton(
                             onPressed: () {
                               provider.searchNews("");
-                              searchSelected = false;
-                              setState(() {});
+                              provider.unViewSearchBar();
                             },
                             icon: const Icon(Icons.cancel, color: Colors.black),
                           ),
@@ -91,8 +91,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                       provider.showSearchIcon == true
                           ? InkWell(
                               onTap: () {
-                                searchSelected = true;
-                                setState(() {});
+                                provider.viewSearchBar();
                               },
                               child: const Icon(Icons.search))
                           : const SizedBox()
