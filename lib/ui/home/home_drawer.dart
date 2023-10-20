@@ -1,13 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/providers/search_provider.dart';
+import 'package:provider/provider.dart';
 
 typedef OnMenuItemClick = void Function(MenuItem clickedItemPos);
 
 class HomeDrawer extends StatelessWidget {
-  OnMenuItemClick onMenuItemClick;
-  HomeDrawer(this.onMenuItemClick, {super.key});
+  final OnMenuItemClick onMenuItemClick;
+  const HomeDrawer(this.onMenuItemClick, {super.key});
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<SearchProvider>(context);
+
     return Drawer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -30,6 +34,7 @@ class HomeDrawer extends StatelessWidget {
             onTap: () {
               onMenuItemClick(MenuItem.categories);
               Navigator.pop(context);
+              provider.unViewSearchIcon();
             },
             child: Row(
               children: [
@@ -46,6 +51,7 @@ class HomeDrawer extends StatelessWidget {
             onTap: () {
               onMenuItemClick(MenuItem.settings);
               Navigator.pop(context);
+              provider.unViewSearchIcon();
             },
             child: Row(
               children: [

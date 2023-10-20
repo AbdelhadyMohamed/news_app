@@ -42,6 +42,7 @@ class _HomeLayoutState extends State<HomeLayout> {
           } else if (selectedWidget is CategoryDetails) {
             selectedWidget = CategoriesWidget(onCategoryClicked);
             setState(() {});
+            provider.unViewSearchIcon();
             return Future.value(false);
           }
           return Future.value(true);
@@ -96,12 +97,14 @@ class _HomeLayoutState extends State<HomeLayout> {
                     children: [
                       Text("News App".tr()),
                       const Spacer(),
-                      InkWell(
-                          onTap: () {
-                            searchSelected = true;
-                            setState(() {});
-                          },
-                          child: const Icon(Icons.search))
+                      provider.showSearchIcon == true
+                          ? InkWell(
+                              onTap: () {
+                                searchSelected = true;
+                                setState(() {});
+                              },
+                              child: const Icon(Icons.search))
+                          : const SizedBox()
                     ],
                   ),
           ),

@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var provider = Provider.of<SearchProvider>(context);
     provider.searchedItem ??= "";
+    provider.showSearchIcon ??= false;
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,

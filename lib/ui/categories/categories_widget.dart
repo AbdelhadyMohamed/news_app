@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/providers/search_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'category.dart';
 import 'category_item.dart';
@@ -7,11 +9,12 @@ import 'category_item.dart';
 typedef OnCategoryClicked = Function(Category category);
 
 class CategoriesWidget extends StatelessWidget {
-  OnCategoryClicked onCategoryClicked;
+  final OnCategoryClicked onCategoryClicked;
   CategoriesWidget(this.onCategoryClicked, {super.key});
-  List<Category> categoryList = Category.getAllCategories();
+  final List<Category> categoryList = Category.getAllCategories();
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<SearchProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Column(
@@ -29,6 +32,7 @@ class CategoriesWidget extends StatelessWidget {
                 return InkWell(
                     onTap: () {
                       onCategoryClicked(categoryList[index]);
+                      provider.viewSearchIcon();
                     },
                     child: CategoryItem(categoryList[index], index));
               },
