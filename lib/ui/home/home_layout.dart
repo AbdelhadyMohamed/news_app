@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/providers/my_provider.dart';
 import 'package:news_app/providers/search_provider.dart';
 import 'package:news_app/ui/categories/categories_widget.dart';
 import 'package:news_app/ui/categories/category.dart';
@@ -23,7 +24,8 @@ class _HomeLayoutState extends State<HomeLayout> {
     selectedWidget = CategoriesWidget(onCategoryClicked);
   }
 
-  bool searchSelected = false;
+  // bool searchSelected = false;
+  @override
   Widget build(BuildContext context) {
     var provider = Provider.of<SearchProvider>(context);
     provider.searchBar ??= false;
@@ -46,7 +48,7 @@ class _HomeLayoutState extends State<HomeLayout> {
             provider.unViewSearchIcon();
             return Future.value(false);
           }
-          return Future.value(true);
+          return Future.value(false);
         },
         child: Scaffold(
           drawer: HomeDrawer(onMenuItemClicked),

@@ -82,6 +82,11 @@ class ShowFullNewWidget extends StatelessWidget {
                       onTap: () {
                         provider.fromFullToNews();
                         provider2.viewSearchIcon();
+                        if (provider2.searchBar == false) {
+                          provider2.unViewSearchBar();
+                        } else {
+                          provider2.viewSearchBar();
+                        }
                       },
                       child: const Align(
                           alignment: Alignment.bottomLeft,

@@ -41,7 +41,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                               Center(
                                 child: Text(snapshot.data?.message ??
                                     snapshot.data?.status.toString() ??
-                                    "something is missing"),
+                                    "Connection is Lost please try again later"),
                               ),
                               ElevatedButton(
                                   onPressed: () {
