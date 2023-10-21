@@ -16,7 +16,7 @@ class ShowFullNewWidget extends StatelessWidget {
     return ChangeNotifierProvider(
         create: (context) => MyProvider(),
         builder: (context, child) => FutureBuilder(
-            future: ApiManager.getNews(
+            future: ApiManager.getInstance().getNews(
                 provider.newsItem.source!.id!, provider2.searchedItem ?? ""),
             builder: (context, snapshot) {
               provider2.searchedItem ??= "";

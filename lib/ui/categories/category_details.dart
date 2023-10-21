@@ -28,7 +28,8 @@ class _CategoryDetailsState extends State<CategoryDetails> {
             children: [
               provider.indicator == true
                   ? FutureBuilder(
-                      future: ApiManager.getSources(widget.category.id),
+                      future: ApiManager.getInstance()
+                          .getSources(widget.category.id),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
