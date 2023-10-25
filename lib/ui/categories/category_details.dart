@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/ui/categories/category.dart';
+import 'package:news_app/ui/categories/category_details_view_model.dart';
 import 'package:news_app/ui/categories/category_tab_screen.dart';
 import 'package:provider/provider.dart';
 import '../../providers/my_provider.dart';
@@ -16,50 +17,48 @@ class CategoryDetails extends StatefulWidget {
 
 class _CategoryDetailsState extends State<CategoryDetails> {
   int index = 0;
-
+  var viewModel = CategoryDetailsViewModel();
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (BuildContext context) => MyProvider(),
-        builder: (context, child) {
-          var provider = Provider.of<MyProvider>(context);
-          provider.indicator ??= true;
-          return Column(
-            children: [
-              provider.indicator == true
-                  ? FutureBuilder(
-                      future: ApiManager.getInstance()
-                          .getSources(widget.category.id),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        } else if (snapshot.hasError ||
-                            snapshot.data?.status == "error") {
-                          return Column(
-                            children: [
-                              Center(
-                                child: Text(snapshot.data?.message ??
-                                    snapshot.data?.status.toString() ??
-                                    "Connection is Lost please try again later"),
-                              ),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    setState(() {});
-                                  },
-                                  child: const Text("Please try again"))
-                            ],
-                          );
-                        }
-                        var sources = snapshot.data?.sources ?? [];
+    var provider = Provider.of<MyProvider>(context);
+    provider.indicator ??= true;
+    // return ChangeNotifierProvider(
+    //     create: (BuildContext context) => MyProvider(),
+    //     builder: (context, child)
+    //     {
+    return Column(
+      children: [
+        provider.indicator == true
+            ? FutureBuilder(
+                future: ApiManager.getInstance().getSources(widget.category.id),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError ||
+                      snapshot.data?.status == "error") {
+                    return Column(
+                      children: [
+                        Center(
+                          child: Text(snapshot.data?.message ??
+                              snapshot.data?.status.toString() ??
+                              "Connection is Lost please try again later"),
+                        ),
+                        ElevatedButton(
+                            onPressed: () {
+                              setState(() {});
+                            },
+                            child: const Text("Please try again"))
+                      ],
+                    );
+                  }
+                  var sources = snapshot.data?.sources ?? [];
 
-                        return CategoryTabScreen(sources, index);
-                      })
-                  : const ShowFullNewWidget()
-            ],
-          );
-        });
+                  return CategoryTabScreen(sources, index);
+                })
+            : const ShowFullNewWidget()
+      ],
+    );
+    // );
 
     //
   }
