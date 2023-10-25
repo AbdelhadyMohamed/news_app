@@ -21,7 +21,8 @@ class ShowFullNewWidget extends StatelessWidget {
             builder: (context, snapshot) {
               provider2.searchedItem ??= "";
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return const Expanded(
+                    child: Center(child: CircularProgressIndicator()));
               } else if (snapshot.hasError ||
                   snapshot.data?.status == "error") {
                 return Column(
@@ -77,7 +78,7 @@ class ShowFullNewWidget extends StatelessWidget {
                     Text(news[index].description ?? "",
                         style:
                             const TextStyle(fontSize: 13, color: Colors.black)),
-                    const SizedBox(height: 40),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.3),
                     InkWell(
                       onTap: () {
                         provider.fromFullToNews();
@@ -92,6 +93,7 @@ class ShowFullNewWidget extends StatelessWidget {
                           alignment: Alignment.bottomLeft,
                           child: Icon(Icons.arrow_back)),
                     ),
+                    const SizedBox(height: 35),
                     InkWell(
                         onTap: () async {
                           final Uri url = Uri.parse(news[index].url ?? "");
@@ -100,10 +102,11 @@ class ShowFullNewWidget extends StatelessWidget {
                             throw Exception('Could not launch');
                           }
                         },
-                        child: const Text(
-                            textAlign: TextAlign.end,
-                            "View Full Article",
-                            style: TextStyle(fontSize: 14)))
+                        child: Text(
+                            textAlign: TextAlign.center,
+                            "Click here to view Full Article",
+                            style: TextStyle(
+                                fontSize: 25, color: Colors.blue[900])))
                   ],
                 ),
               );

@@ -60,7 +60,7 @@ class _NewsWidgetState extends State<NewsWidget> {
                     textAlign: TextAlign.start,
                   ),
                   Text(
-                    widget.news.publishedAt?.substring(0, 10) ?? "",
+                    widget.news.publishedAt?.substring(0, 16) ?? "",
                     textAlign: TextAlign.end,
                   ),
                 ],

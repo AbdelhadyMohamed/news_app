@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../models/SourcesResponse.dart';
-import '../widgets/news_list_widget.dart';
-import '../widgets/tab_widget.dart';
+import '../news/news_list_widget.dart';
+import '../news/tab_widget.dart';
 
 class CategoryTabScreen extends StatefulWidget {
   List<Sources> sources;

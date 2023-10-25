@@ -4,8 +4,7 @@ import 'package:news_app/ui/categories/category_details_view_model.dart';
 import 'package:news_app/ui/categories/category_tab_screen.dart';
 import 'package:provider/provider.dart';
 import '../../providers/my_provider.dart';
-import '../../shared/api_manager/api_manager.dart';
-import '../widgets/show_full_news_widget.dart';
+import '../news/show_full_news_widget.dart';
 
 class CategoryDetails extends StatefulWidget {
   final Category category;
@@ -19,47 +18,47 @@ class _CategoryDetailsState extends State<CategoryDetails> {
   int index = 0;
   var viewModel = CategoryDetailsViewModel();
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    viewModel.getSources(widget.category.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
     var provider = Provider.of<MyProvider>(context);
     provider.indicator ??= true;
-    // return ChangeNotifierProvider(
-    //     create: (BuildContext context) => MyProvider(),
-    //     builder: (context, child)
-    //     {
-    return Column(
-      children: [
-        provider.indicator == true
-            ? FutureBuilder(
-                future: ApiManager.getInstance().getSources(widget.category.id),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError ||
-                      snapshot.data?.status == "error") {
-                    return Column(
-                      children: [
-                        Center(
-                          child: Text(snapshot.data?.message ??
-                              snapshot.data?.status.toString() ??
-                              "Connection is Lost please try again later"),
-                        ),
-                        ElevatedButton(
-                            onPressed: () {
-                              setState(() {});
-                            },
-                            child: const Text("Please try again"))
-                      ],
-                    );
-                  }
-                  var sources = snapshot.data?.sources ?? [];
-
-                  return CategoryTabScreen(sources, index);
-                })
-            : const ShowFullNewWidget()
-      ],
+    return ChangeNotifierProvider(
+      create: (context) => viewModel,
+      child: Column(
+        children: [
+          provider.indicator == true
+              ? Consumer<CategoryDetailsViewModel>(
+                  builder: (context, value, child) {
+                    if (viewModel.showLoading == true) {
+                      return const Expanded(
+                          child: Center(child: CircularProgressIndicator()));
+                    } else if (viewModel.errorMessage != null) {
+                      return Column(
+                        children: [
+                          Center(
+                            child: Text(viewModel.errorMessage ??
+                                "Connection is Lost please try again later"),
+                          ),
+                          ElevatedButton(
+                              onPressed: () {
+                                setState(() {});
+                              },
+                              child: const Text("Please try again"))
+                        ],
+                      );
+                    }
+                    return CategoryTabScreen(viewModel.sourcesList!, index);
+                  },
+                )
+              : const ShowFullNewWidget()
+        ],
+      ),
     );
-    // );
-
-    //
   }
 }

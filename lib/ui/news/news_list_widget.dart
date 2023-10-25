@@ -20,7 +20,8 @@ class NewsListWidget extends StatelessWidget {
           .getNews(source.id!, provider.searchedItem ?? ""),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const Expanded(
+              child: Center(child: CircularProgressIndicator()));
         } else if (snapshot.hasError || snapshot.data?.status == "error") {
           return ChangeNotifierProvider(
               create: (context) => MyProvider(),
