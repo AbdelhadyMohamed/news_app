@@ -1,29 +1,26 @@
 import 'package:flutter/widgets.dart';
 import 'package:news_app/shared/api_manager/api_manager.dart';
-import '../../models/SourcesResponse.dart';
 
-class CategoryDetailsViewModel extends ChangeNotifier {
-  List<Sources>? sourcesList;
-  String? errorMessage;
+import '../../models/NewsResponse.dart';
+
+class NewsListViewModel extends ChangeNotifier {
   bool? showLoading;
-  getSources(String categoryId) async {
+  List<News>? newsList;
+  String? errorMessage;
+
+  getNews(String sourceId, String keyword) async {
     showLoading = true;
     notifyListeners();
     try {
-      var response = await ApiManager.getInstance().getSources(categoryId);
+      var response = await ApiManager.getInstance().getNews(sourceId, keyword);
       if (response.status == "error") {
-        //error
         showLoading = false;
         errorMessage = response.message;
       } else {
-        //data
         showLoading = false;
-
-        sourcesList = response.sources;
+        newsList = response.articles;
       }
     } catch (e) {
-      // showLoading = false;
-
       errorMessage = e.toString();
     }
     notifyListeners();

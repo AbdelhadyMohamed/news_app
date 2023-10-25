@@ -41,13 +41,15 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                     } else if (viewModel.errorMessage != null) {
                       return Column(
                         children: [
+                          const SizedBox(height: 50),
                           Center(
                             child: Text(viewModel.errorMessage ??
                                 "Connection is Lost please try again later"),
                           ),
+                          const SizedBox(height: 50),
                           ElevatedButton(
                               onPressed: () {
-                                setState(() {});
+                                viewModel.getSources(widget.category.id);
                               },
                               child: const Text("Please try again"))
                         ],

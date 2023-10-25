@@ -6,7 +6,7 @@ import 'package:news_app/models/SourcesResponse.dart';
 import '../../models/NewsResponse.dart';
 
 class ApiManager {
-  static const String apiKey = "418c4a12f757407eba96b653e5a94d7b";
+  static const String apiKey = "5edd600c6201426bbccb9f232dd022ca";
   static const String baseUrl = "newsapi.org";
 
   // Private constructor to prevent external instantiation
@@ -30,9 +30,9 @@ class ApiManager {
     return sourcesResponse;
   }
 
-  Future<NewsResponse> getNews(String sourcedId, String keyword) async {
+  Future<NewsResponse> getNews(String sourceId, String keyword) async {
     Uri url = Uri.https(baseUrl, "/v2/everything",
-        {"apikey": apiKey, "sources": sourcedId, "q": keyword});
+        {"apikey": apiKey, "sources": sourceId, "q": keyword});
     Response response = await http.get(url);
     var json = jsonDecode(response.body);
     var newsResponse = NewsResponse.fromJson(json);
