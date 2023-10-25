@@ -74,7 +74,7 @@ class ShowFullNewWidget extends StatelessWidget {
                         style: const TextStyle(
                             fontSize: 13, color: Color(0xFF79828B))),
                     const SizedBox(height: 50),
-                    Text(news[index].description ?? "",
+                    Text(news[index].content ?? "",
                         style:
                             const TextStyle(fontSize: 13, color: Colors.black)),
                     const SizedBox(height: 40),

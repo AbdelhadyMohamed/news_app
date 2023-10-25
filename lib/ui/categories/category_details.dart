@@ -4,7 +4,7 @@ import 'package:news_app/ui/categories/category_tab_screen.dart';
 import 'package:provider/provider.dart';
 import '../../providers/my_provider.dart';
 import '../../shared/api_manager/api_manager.dart';
-import '../widgets/show_full_news_widget.dart';
+import '../news/show_full_news_widget.dart';
 
 class CategoryDetails extends StatefulWidget {
   final Category category;
@@ -54,7 +54,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                         }
                         var sources = snapshot.data?.sources ?? [];
 
-                        return CategoryTabScreen(sources, index);
+                        return CategoryTabScreen(sources);
                       })
                   : const ShowFullNewWidget()
             ],
