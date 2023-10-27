@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../models/SourcesResponse.dart';
+import '../../data/models/SourcesResponse.dart';
 import '../news/news_list_widget.dart';
 import '../news/tab_widget.dart';
 

@@ -2,9 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/providers/my_provider.dart';
 import 'package:news_app/providers/search_provider.dart';
-import 'package:news_app/shared/api_manager/api_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../data/api_manager/api_manager.dart';
 
 class ShowFullNewWidget extends StatelessWidget {
   const ShowFullNewWidget({super.key});

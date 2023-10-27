@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-import 'package:news_app/models/SourcesResponse.dart';
-import '../../models/NewsResponse.dart';
+import '../models/NewsResponse.dart';
+import '../models/SourcesResponse.dart';
 
 class ApiManager {
   static const String apiKey = "38a53e1cd499476194cdb9211d1f9ab1";

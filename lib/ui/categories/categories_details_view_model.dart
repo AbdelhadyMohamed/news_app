@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:news_app/shared/api_manager/api_manager.dart';
 
-import '../../models/SourcesResponse.dart';
+import '../../data/api_manager/api_manager.dart';
+import '../../data/models/SourcesResponse.dart';
 
 class CategoryDetailsViewModel extends Cubit<CategoryDetailsState> {
   CategoryDetailsViewModel() : super(LoadingState("Loading...."));

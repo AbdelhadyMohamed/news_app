@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/models/NewsResponse.dart';
 import 'package:news_app/providers/search_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../data/models/NewsResponse.dart';
 import '../../providers/my_provider.dart';
 
 class NewsWidget extends StatefulWidget {

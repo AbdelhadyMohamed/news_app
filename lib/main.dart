@@ -14,7 +14,7 @@ void main() async {
       providers: [
         MultiProvider(providers: [
           ChangeNotifierProvider(create: (context) => MyProvider()),
-          ChangeNotifierProvider(create: (context) => SearchProvider())
+          ChangeNotifierProvider(create: (context) => SearchProvider()  )
         ]),
       ],
       child: EasyLocalization(

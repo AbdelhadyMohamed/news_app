@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:news_app/shared/api_manager/api_manager.dart';
 
-import '../../models/NewsResponse.dart';
+import '../../data/api_manager/api_manager.dart';
+import '../../data/models/NewsResponse.dart';
 
 class NewsViewModel extends Cubit<NewsListState> {
   NewsViewModel() : super(LoadingState("Loading...."));

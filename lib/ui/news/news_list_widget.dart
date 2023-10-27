@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/models/SourcesResponse.dart';
 import 'package:news_app/providers/search_provider.dart';
-import 'package:news_app/shared/api_manager/api_manager.dart';
 import 'package:news_app/ui/news/news_view_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../data/models/SourcesResponse.dart';
 import '../../providers/my_provider.dart';
 import 'news_widget.dart';
 
