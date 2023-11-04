@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/DI/di.dart';
 import 'package:news_app/providers/search_provider.dart';
 import 'package:news_app/ui/news/news_view_model.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,7 @@ class NewsListWidget extends StatefulWidget {
 }
 
 class _NewsListWidgetState extends State<NewsListWidget> {
-  var viewModel = NewsViewModel();
+  var viewModel = getIt.get<NewsViewModel>();
   var provider = SearchProvider();
 
   @override

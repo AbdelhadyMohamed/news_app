@@ -1,19 +1,18 @@
 import 'package:bloc/bloc.dart';
-
-import '../../data/api_manager/api_manager.dart';
+import 'package:injectable/injectable.dart';
 import '../../data/models/NewsResponse.dart';
+import '../../repoContract/news_repo_contract.dart';
 
+@injectable
 class NewsViewModel extends Cubit<NewsListState> {
-  NewsViewModel() : super(LoadingState("Loading...."));
+  late NewsRepoContract newsRepo;
+  @factoryMethod
+  NewsViewModel(this.newsRepo) : super(LoadingState("Loading...."));
   void loadNews(String sourceId, String keyword) async {
     emit(LoadingState("Loading...."));
     try {
-      var response = await ApiManager.getInstance().getNews(sourceId, keyword);
-      if (response.status == "error") {
-        emit(ErrorState(response.message ?? ""));
-      } else {
-        emit(SuccessState(response.articles));
-      }
+      var newsList = await newsRepo.getNews(sourceId, keyword);
+      emit(SuccessState(newsList));
     } catch (e) {
       emit(ErrorState(e.toString()));
     }
@@ -38,3 +37,14 @@ class LoadingState extends NewsListState {
 
   LoadingState(this.message);
 }
+
+// class NewsWidget {
+//   int? id;
+//   String? date;
+//   String? title;
+//   String? content;
+//
+//   NewsWidget(this.id);
+//   NewsWidget.fromTitle(this.title);
+//   NewsWidget.fromTitleAndId(this.id, this.title);
+// }

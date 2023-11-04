@@ -4,6 +4,7 @@ import 'package:news_app/ui/categories/categories_details_view_model.dart';
 import 'package:news_app/ui/categories/category.dart';
 import 'package:news_app/ui/categories/category_tab_screen.dart';
 import 'package:provider/provider.dart';
+import '../../DI/di.dart';
 import '../../providers/my_provider.dart';
 import '../news/show_full_news_widget.dart';
 
@@ -17,7 +18,7 @@ class CategoryDetails extends StatefulWidget {
 
 class _CategoryDetailsState extends State<CategoryDetails> {
   int index = 0;
-  var viewModel = CategoryDetailsViewModel();
+  var viewModel = getIt.get<CategoryDetailsViewModel>(); //field injection
   @override
   void initState() {
     // TODO: implement initState
