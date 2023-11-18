@@ -2,9 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/providers/my_provider.dart';
 import 'package:news_app/providers/search_provider.dart';
-import 'package:news_app/shared/api_manager/api_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../data/api_manager/api_manager.dart';
 
 class ShowFullNewWidget extends StatelessWidget {
   const ShowFullNewWidget({super.key});
@@ -16,7 +17,7 @@ class ShowFullNewWidget extends StatelessWidget {
     return ChangeNotifierProvider(
         create: (context) => MyProvider(),
         builder: (context, child) => FutureBuilder(
-            future: ApiManager.getInstance().getNews(
+            future: ApiManager().getNews(
                 provider.newsItem.source!.id!, provider2.searchedItem ?? ""),
             builder: (context, snapshot) {
               provider2.searchedItem ??= "";
@@ -74,7 +75,7 @@ class ShowFullNewWidget extends StatelessWidget {
                         style: const TextStyle(
                             fontSize: 13, color: Color(0xFF79828B))),
                     const SizedBox(height: 50),
-                    Text(news[index].description ?? "",
+                    Text(news[index].content ?? "",
                         style:
                             const TextStyle(fontSize: 13, color: Colors.black)),
                     const SizedBox(height: 40),

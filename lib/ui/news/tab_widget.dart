@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/models/SourcesResponse.dart';
-import 'package:news_app/shared/api_manager/api_manager.dart';
+
+import '../../data/models/SourcesResponse.dart';
 
 class TabWidget extends StatefulWidget {
   bool isSelected;

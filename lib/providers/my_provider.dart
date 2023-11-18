@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../models/NewsResponse.dart';
+import '../data/models/NewsResponse.dart';
 
 class MyProvider extends ChangeNotifier {
   bool? indicator;

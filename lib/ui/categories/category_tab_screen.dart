@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../models/SourcesResponse.dart';
-import '../widgets/news_list_widget.dart';
-import '../widgets/tab_widget.dart';
+import '../../data/models/SourcesResponse.dart';
+import '../news/news_list_widget.dart';
+import '../news/tab_widget.dart';
 
 class CategoryTabScreen extends StatefulWidget {
   List<Sources> sources;
-  int index;
-  CategoryTabScreen(this.sources, this.index, {super.key});
+  int index = 0;
+  CategoryTabScreen(this.sources, {super.key});
 
   @override
   State<CategoryTabScreen> createState() => _CategoryTabScreenState();

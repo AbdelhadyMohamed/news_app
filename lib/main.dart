@@ -6,7 +6,11 @@ import 'package:news_app/providers/search_provider.dart';
 import 'package:news_app/ui/home/home_layout.dart';
 import 'package:provider/provider.dart';
 
+import 'DI/di.dart';
+
 void main() async {
+  configureDependencies();
+
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   runApp(
